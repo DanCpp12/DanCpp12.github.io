@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <title>Daniel Estéen</title>
+
+    <link rel="stylesheet" href="../Styles/Permanent.css" />
+    <link rel="stylesheet" href="../Styles/Games.css" />
+    <link rel="stylesheet" href="../Styles/GamesChapters.css"/>
+
+    <!--<link rel="stylesheet" href="../Styles/debug.css"/>-->
+</head>
+
+<body class="WallPapper">
+    <header>
+        <div class="Banner">
+            <img src="../Images/HeadShoot.png" alt="selfie">
+            <div>
+                <h1><b>Daniel Estéen</b></h1>
+            </div>
+        </div>
+        <nav>
+            <button class="NavBtn" onclick="window.location.href='../index.html';">Home</button>
+            <button class="NavBtn" onclick="window.location.href='../Projects.html';">Projects</button>
+            <button class="NavBtn" disabled>MadBoxRacing</button>
+        </nav>
+    </header>
+    <div class="Traversal">
+        <ul>
+            <li><a href="#Info">Info</a></li>
+            <hr>
+            <li><a href="#Chapter1">Editor</a></li>
+            <hr>
+            <li><a href="#Chapter2">Vehicle Loader</a></li>
+        </ul>
+    </div>
+    <article>
+        <div class="Article">
+            <div id="Info" class="Target">
+                <div id="Details">
+                    <div class="Text">
+                        <div class="Tittle">
+                            <h1>Details</h1>
+                        </div>
+                        <ul>
+                            <li>Genre: Racing</li>
+                            <li>Platform: PC, Android</li>
+                            <li>Engine: Unity</li>
+                            <li>Group Size: 16 Members</li>
+                            <li>Date: 2024</li>
+                            <li>Duration: 4 Weeks</li>
+                            <li>Roles: Lead Programmer, UI Programmer</li>
+                        </ul>
+                    </div>
+                    <div id="Trailer">
+                        <iframe class="Trailer" src="https://www.youtube.com/embed/hAZQxNSgpXE" title="Mad Box Racing" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <br>
+                        <br>
+                        <br>
+                        <div class="Center">
+                            <p class="ItchBtn"><a href="https://futuregames.itch.io/madboxracing" class="ubuntu-bold">Play Now</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div id="Description" class="Container">
+                    <div class="Text">
+                        <h1 class="Tittle">Description</h1>
+                        <p>A gravity-driven cart race for mobile with hotswap</p>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div id="Chapter1" class="MidleChapter Target">
+                <div class="Container">
+                    <div class="Tittle W40">
+                        <h1>Editor</h1>
+                    </div>
+                    <div class="W40">
+                        <img class="contentImg" src="../Images/Games/editor.png">
+                    </div>
+                    <div class="Text W100">
+                        <p>The plan was to have a fully functional editor for the cart and the character, but it had to be cut because of placement of meshes.<br>
+                            Even though it was cut, I used the code of the editor to make two carts that you could choose between.</p>
+                    </div>
+                    <div class="code">
+                        <img src="../Images/scripts/MadBoxRacing/Editor%20NextPart()2.png">
+                    </div>
+                    <div class="Text">
+                        <p>The way the editor works is that each part type has a list in a scriptable object which the user could go through and select the parts. When a part has been selected, the index of that part is saved in the scriptable object to be used later when loading in the vehicle. However, because I could not get it finished in time, we chose to create two vehicles that the users could pick.</p>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div id="Chapter2" class="EndChapter Target">
+                <div class="Container">
+                    <div class="Tittle W40">
+                        <h1>Vehicle Loader</h1>
+                    </div>
+                    <div class="W40"></div>
+                    <div class="code W40">
+                        <img src="../Images/scripts/MadBoxRacing/Vehicle%20Loader%20Body().png">
+                    </div>
+                    <div class="Text W40">
+                        <p>
+                            To load the vehicle, the code goes through all the lists and instantiates the parts at the selected index, giving them a appropriate name.<br>
+                            This is the code for the body
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+    <footer>
+        <!-- contact -->
+        <h1>Contact Me</h1>
+        <div><p><img src="../Images/Icons/Mail_Icon_Dark.png"> <a href="mailto:daniel@esteen.st">daniel@esteen.st</a></p></div>
+        <div><p><img src="../Images/Icons/Phone_Icon2.png"> <a href="tel:+46706060701">+46 70 606 07 01</a></p></div>
+        <div><p><img src="../Images/Icons/Linkedin_icon1.png"> <a href="https://www.linkedin.com/in/danielesteen">linkedin</a></p></div>
+        <!-- site status -->
+        <div class="PageStatusBar">
+            <p>Page Status: <span class="PageStatusGood">Good</span></p>
+            <!--<p>Page Status: <span class="PageStatusDevelopment">In Development</span></p>-->
+            <!--<p>Page Status: <span class="PageStatusBad">Bad</span></p>-->
+        </div>
+    </footer>
+</body>
+
+</html>

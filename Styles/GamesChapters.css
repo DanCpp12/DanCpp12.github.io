@@ -1,0 +1,57 @@
+#Info::before {
+    height: 15rem;
+    display: block;
+    content: "";
+    margin-bottom: 2rem;
+}
+#Info {
+    margin-bottom: -25rem;
+}
+.MidleChapter::before {
+    height: 20rem;
+    display: block;
+    content: "";
+}
+.MidleChapter {
+    margin-bottom: -25rem;
+}
+.EndChapter::before {
+    height: 20rem;
+    display: block;
+    content: "";
+}
+.EndChapter {
+    margin-bottom: -0rem;
+}
+/*#Chapter1::before {
+    height: 20rem;
+    display: block;
+    content: "";
+}
+#Chapter1 {
+    margin-bottom: -15rem;
+}
+#Chapter2::before {
+    height: 20rem;
+    display: block;
+    content: "";
+}
+#Chapter2 {
+    margin-bottom: -15rem;
+}
+#Chapter3::before {
+    height: 15rem;
+    display: block;
+    content: "";
+}
+#Chapter3 {
+    margin-bottom: -0rem;
+}
+#Chapter3::before {
+    height: 15rem;
+    display: block;
+    content: "";
+}
+#Chapter3 {
+    margin-bottom: -0rem;
+}*/

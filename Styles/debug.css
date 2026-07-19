@@ -1,0 +1,18 @@
+html {
+    border: 2px solid purple;
+}
+header, article, main, footer{
+    border: 2px solid blue;
+}
+
+h1, p, a{
+    border: 2px solid yellow;
+}
+
+.Divider, .School{
+    border: 2px solid red;
+}
+#info::before,
+#Chapter1::before{
+    border: 2px solid pink;
+}

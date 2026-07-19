@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <title>Daniel Estéen</title>
+
+    <link rel="stylesheet" href="../Styles/Permanent.css" />
+    <link rel="stylesheet" href="../Styles/Games.css" />
+    <link rel="stylesheet" href="../Styles/GamesChapters.css"/>
+
+    <!--<link rel="stylesheet" href="../Styles/debug.css"/>-->
+</head>
+
+<body class="WallPapper">
+    <header>
+        <div class="Banner">
+            <img src="../Images/HeadShoot.png" alt="selfie">
+            <div>
+                <h1><b>Daniel Estéen</b></h1>
+            </div>
+        </div>
+        <nav>
+            <button class="NavBtn" onclick="window.location.href='../index.html';">Home</button>
+            <button class="NavBtn" onclick="window.location.href='../Projects.html';">Projects</button>
+            <button class="NavBtn" disabled>Marked For Deletion</button>
+        </nav>
+    </header>
+    <div class="Traversal">
+        <ul>
+            <li><a href="#Info">Info</a></li>
+            <hr>
+            <li><a href="#Chapter1">Spawner</a></li>
+            <hr>
+            <li><a href="#Chapter2">Blueprint</a></li>
+            <hr>
+            <li><a href="#Chapter3">Spawner Search</a></li>
+            <hr>
+            <li><a href="#Chapter4">Options</a></li>
+        </ul>
+    </div>
+    <article>
+        <div class="Article">
+            <div id="Info" class="Target">
+                <div id="Details">
+                    <div class="Text">
+                        <div class="Tittle">
+                            <h1>Details</h1>
+                        </div>
+                        <ul>
+                            <li>Genre: Stealth</li>
+                            <li>Platform: PC</li>
+                            <li>Engine: Unreal</li>
+                            <li>Group Size: 10 Members</li>
+                            <li>Date: 2024</li>
+                            <li>Duration: 4 Weeks</li>
+                            <li>Roles: Gameplay Programmer</li>
+                        </ul>
+                    </div>
+                    <div id="Trailer">
+                        <iframe class="Trailer" 
+                            src="https://www.youtube.com/embed/8f28B7b2gco" title="Marked for Deletion - Trailer"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+                        <br>
+                        <br>
+                        <br>
+                        <div class="Center">
+                            <p class="ItchBtn"><a href="https://futuregames.itch.io/markedfordeletion" class="ubuntu-bold">Play Now</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div id="Description" class="Container">
+                    <div class="Text">
+                        <h1 class="Tittle">Description</h1>
+                        <p>A meta stealth game where you delete the developers.</p>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div id="Chapter1" class="MidleChapter Target">
+                <div class="Container">
+                    <div class="Tittle W40">
+                        <h1>Spawner</h1>
+                    </div>
+                    <div class="W40">
+                        <video class="contentImg" controls autoplay loop muted preload="auto">
+                            <source src="../Videos/MarkedForDeletion/PlaceEverythingAtSpawner.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="Text W100">
+                        <p>
+                            I made this spawner which in the end placed everything at the spawners location.<br>
+                            But it had a lot of settings.
+                            The spawner consist of two parts the spawner and the spawner manager.
+                        </p>
+                    </div>
+                    <div class="code W40">
+                        <img src="../Images/Games/MarkedForDeletion/SpawnManager%20Details.png">
+                    </div>
+                    <div class="Text W40">
+                        <p>The spawner manager has a tag and class to search for to find all spawners in the level a list of what to give to each spawner</p>
+                    </div>
+                    <div class="code W40">
+                        <img src="../Images/Games/MarkedForDeletion/Spawner%20Details.png">
+                    </div>
+                    <div class="Text W40">
+                        <p>
+                            The spawner has setable roof level to control from how high it will draw the line traces, floor level where thr floor is, floor buffer how far below the floor level it should check and props min z for the minumum height props can spawn and radius how far away from the spawner things can spawn.<br>
+                            Assets are received from the Spawn Manager the settings under Advanced are shown wurther down.
+                        </p>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div id="Chapter2" class="MidleChapter Target">
+                <div id="SpawnerBP" class="Container">
+                    <div class="Tittle W100">
+                        <h1>Blueprint</h1>
+                    </div>
+                    <div class="code W100">
+                        <img src="../Images/scripts/MarkedForDeletion/SpawnerManager%20BP.png">
+                    </div>
+                    <div class="code W100">
+                        <img src="../Images/scripts/MarkedForDeletion/Spawner%20BP.png">
+                    </div>
+                    <div class="Text W40">
+                        <p>
+                            These images are of the SpawnerManager blueprint and the Spawner blueprint.<br>
+                            What I did was I created functions in c++ and then connected everything in the blueprints.
+                        </p>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div id="Chapter3" class="MidleChapter Target">
+                <div id="SpawnerCode" class="Container">
+                    <div class="Tittle W100">
+                        <h1>Spawner Search</h1>
+                    </div>
+                    <div class="code W40">
+                        <img src="../Images/scripts/MarkedForDeletion/FindAllActors().png">
+                    </div>
+                    <div class="Text W40">
+                        <p>This code search for all the actors in the level of a type which is not needed as I only search for spawners</p>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div id="Chapter4" class="EndChapter Target">
+                <div id="SpawnerOptions" class="Container">
+                    <div class="Tittle W100">
+                        <h1>Options</h1>
+                    </div>
+                    <div class="Text W50">
+                        <h1 class="Tittle">Random Position:</h1>
+                        <p>
+                            You can randomise the position of eather the developer or the props or both.
+                        </p>
+                    </div>
+                    <div class="W40">
+                        <video class="contentImg" controls autoplay loop muted preload="auto">
+                            <source src="../Videos/MarkedForDeletion/EverythingRandom.mp4" type="video/mp4">
+                        </video>
+                    </div>
+
+                    <div class="Text W50">
+                        <h1 class="Tittle">Debug Options:</h1>
+                        <p>
+                            You have three debug options debug final position, debug all position and debug floor. <br>
+                            The red circle is the floor level the lowest point anything can spawn. the blue lines
+                            are invalid spawn atempts of eather props or the dev,
+                            while the red lines are valid atempts
+                        </p>
+                    </div>
+                    <div class="W40">
+                        <video class="contentImg" controls autoplay loop muted preload="auto">
+                            <source src="../Videos/MarkedForDeletion/DebugEverything.mp4" type="video/mp4">
+                        </video>
+                    </div>
+
+                    <div class="Text W50">
+                        <h1 class="Tittle">Multiple Spawners:</h1>
+                        <p>
+                            If it existed more spawners than developers to spawn then it randomise which spawner.
+                        </p>
+                    </div>
+                    <div class="W40">
+                        <video class="contentImg" controls autoplay loop muted preload="auto">
+                            <source src="../Videos/MarkedForDeletion/MultipleSpawners.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+    <footer>
+        <!-- contact -->
+        <h1>Contact Me</h1>
+        <div><p><img src="../Images/Icons/Mail_Icon_Dark.png"> <a href="mailto:daniel@esteen.st">daniel@esteen.st</a></p></div>
+        <div><p><img src="../Images/Icons/Phone_Icon2.png"> <a href="tel:+46706060701">+46 70 606 07 01</a></p></div>
+        <div><p><img src="../Images/Icons/Linkedin_icon1.png"> <a href="https://www.linkedin.com/in/danielesteen">linkedin</a></p></div>
+        <!-- site status -->
+        <div class="PageStatusBar">
+            <p>Page Status: <span class="PageStatusGood">Good</span></p>
+            <!--<p>Page Status: <span class="PageStatusDevelopment">In Development</span></p>-->
+            <!--<p>Page Status: <span class="PageStatusBad">Bad</span></p>-->
+        </div>
+    </footer>
+</body>
+
+</html>

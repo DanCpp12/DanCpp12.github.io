@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <title>Daniel Estéen</title>
+
+    <link rel="stylesheet" href="../Styles/Permanent.css"/>
+    <link rel="stylesheet" href="../Styles/Games.css"/>
+    <link rel="stylesheet" href="../Styles/GamesChapters.css"/>
+
+    <!--<link rel="stylesheet" href="../Styles/debug.css"/>-->
+</head>
+
+<body class="WallPapper">
+    <header>
+        <div class="Banner">
+            <img src="../Images/HeadShoot.png" alt="selfie">
+            <div>
+                <h1><b>Daniel Estéen</b></h1>
+            </div>
+        </div>
+        <nav>
+            <button class="NavBtn" onclick="window.location.href='../index.html';">Home</button>
+            <button class="NavBtn" onclick="window.location.href='../Projects.html';">Projects</button>
+            <button class="NavBtn" disabled>Temple of Recall</button>
+        </nav>
+    </header>
+    <div class="Traversal">
+        <ul>
+            <li><a href="#Info">Info</a></li>
+            <hr>
+            <li><a href="#Chapter1">Recording</a></li>
+            <hr>
+            <li><a href="#Chapter2">Rewinding</a></li>
+            <hr>
+            <li><a href="#Chapter3">Activation</a></li>
+        </ul>
+    </div>
+    <article>
+        <div class="Article">
+            <div id="Info" class="Target">
+                <div id="Details">
+                    <div class="Text">
+                        <div class="Tittle">
+                            <h1>Details</h1>
+                        </div>
+                        <ul>
+                            <li>Genre: Puzzle</li>
+                            <li>Platform: PC</li>
+                            <li>Engine: Unreal</li>
+                            <li>Group Size: 12 Members</li>
+                            <li>Date: 2024</li>
+                            <li>Duration: 7 Weeks</li>
+                            <li>Roles: Rewind Programmer, Movement Programmer</li>
+                        </ul>
+                    </div>
+                    <div id="Trailer">
+                        <iframe class="Trailer" src="https://www.youtube.com/embed/Jzrdh9lmyPU" title="Temple of Recall - Trailer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <br>
+                        <br>
+                        <br>
+                        <div class="Center">
+                            <p class="ItchBtn"><a href="https://futuregames.itch.io/temple-of-recall" class="ubuntu-bold">Play Now</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div id="Description" class="Container">
+                    <div class="Text">
+                        <h1 class="Tittle">Description</h1>
+                        <p>temple of Recall is a puzzle game where you rewind time of objects you have recorded</p>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div id="Chapter1" class="MidleChapter Target">
+                <div class="Container">
+                    <div class="Tittle W40">
+                        <h1>Recording</h1>
+                    </div>
+                    <div class="W40">
+                        <video class="contentImg" controls autoplay loop muted preload="auto">
+                            <source src="../Videos/TempleofRecal/Record_vid.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="code W40">
+                        <img src="../Images/scripts/TempleOfRecall/FTransformAndVelocetySnapshot.png">
+                    </div>
+                    <div class="Text W40">
+                        <p>
+                            The recording stores the transform, linear velocity, and angular velocity as snapshots in one ring buffer.
+                            When the ring buffer becomes full, it stops recording and freezes the object.<br><br>
+                            The snapshots that are saved contain the following information:
+                        </p>
+                        <ul>
+                            <li>Time since the last snapshot</li>
+                            <li>The object's position</li>
+                            <li>The object's linear velocity</li>
+                            <li>The object's angular velocity in radians</li>
+                        </ul>
+                    </div>
+                    <div class="code">
+                        <img src="../Images/scripts/TempleOfRecall/RewindComponent%20RecordSnapshot().png">
+                    </div>
+                    <div class="Text">
+                        <p>
+                            This is where the FTransformAndVelocetySnapshot struct gets saved into a ring buffer.<br>
+                            If the maximum number of snapshots is reached, the oldest snapshot is removed.<br>
+                            This process is somewhat redundant because, when it reaches that point, recording stops, and the object freezes.
+                        </p>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div id="Chapter2" class="MidleChapter Target">
+                <div class="Container">
+                    <div class="Tittle W40">
+                        <h1>Rewinding</h1>
+                    </div>
+                    <div class="W40">
+                        <video class="contentImg" controls autoplay loop muted preload="auto">
+                            <source src="../Videos/TempleofRecal/Rewind_vid.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="Text W100">
+                        <p>
+                            The rewind goes through the items that are recorded in the ring buffer to rewind the objects to a previous position and removes the old position.
+                            When the ring buffer is empty and you have rewound all the way back, the object becomes deselected.
+                        </p>
+                    </div>
+                    <div class="code">
+                        <img src="../Images/scripts/TempleOfRecall/RewindComponent%20PlaySnapshot()3.png">
+                    </div>
+                    <div class="Text">
+                        <p>
+                            It starts by checking if there are insufficient snapshots; if so, it returns.<br>
+                            If there are sufficient snapshots, time dilation is applied to the delta time.<br>
+                            Next, it drops any snapshots that are too old to be relevant.<br>
+                            It also removes snapshots that have the same transform, except for a few that are skipped by the buffer variable.<br>
+                            After that, it checks if there are any snapshots in the future; if none are left, it can't interpolate, so it just snaps to the latest snapshot.<br>
+                            If it has reached the end of the track, it clamps the interpolation and unselects the object.
+                        </p>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div id="Chapter3" class="EndChapter Target">
+                <div class="Container">
+                    <div class="Text">
+                        <h1 class="Tittle">Activation of main mechanic</h1>
+                        <p>The character activates the record and rewinds through the game mode which uses multicast delegates to activate the objects with the rewind component.</p>
+                        <p>Selecting objects is done by grabbing objects that have the rewind component with a bounding box on the character and selecting them to be able to record and rewind.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+    <footer>
+        <!-- contact -->
+        <h1>Contact Me</h1>
+        <div><p><img src="../Images/Icons/Mail_Icon_Dark.png"> <a href="mailto:daniel@esteen.st">daniel@esteen.st</a></p></div>
+        <div><p><img src="../Images/Icons/Phone_Icon2.png"> <a href="tel:+46706060701">+46 70 606 07 01</a></p></div>
+        <div><p><img src="../Images/Icons/Linkedin_icon1.png"> <a href="https://www.linkedin.com/in/danielesteen">linkedin</a></p></div>
+        <!-- site status -->
+        <div class="PageStatusBar">
+            <p>Page Status: <span class="PageStatusGood">Good</span></p>
+            <!--<p>Page Status: <span class="PageStatusDevelopment">In Development</span></p>-->
+            <!--<p>Page Status: <span class="PageStatusBad">Bad</span></p>-->
+        </div>
+    </footer>
+</body>
+
+</html>

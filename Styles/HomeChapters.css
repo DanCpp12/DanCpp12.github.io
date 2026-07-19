@@ -1,0 +1,25 @@
+#Intro::before {
+    height: 17rem;
+    display: block;
+}
+#Intro {
+    margin-bottom: -15rem;
+}
+.MidleChapter::before {
+    height: 17rem;
+    display: block;
+    content: "";
+}
+.MidleChapter {
+    margin-top: 5rem;
+    margin-bottom: -15rem;
+}
+.EndChapter::before {
+    height: 17rem;
+    display: block;
+    content: "";
+}
+.EndChapter {
+    margin-top: 5rem;
+    margin-bottom: 0rem;
+}

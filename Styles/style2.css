@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+.ubuntu-regular {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.ubuntu-bold {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+.ubuntu-light-italic {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+html {
+    font-size: 10px;
+    color: white;
+}
+
+.Overflow {
+    height: calc(100% - 13rem);
+    margin-top: 14.4rem;
+
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+.Overflow::-webkit-scrollbar {
+    display: none;
+}
+
+h1,
+p,
+li {
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+    /*margin: inherit;*/
+    
+    line-height: 3.5rem;
+    /*word-spacing: 0.5rem;*/
+    word-spacing: inherit;
+    text-shadow: 2px 2px 2px black, 0 0 5px darkblue;
+}
+
+li {
+    line-height: 3rem;
+}
+
+a {
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 300;
+    font-style: italic;
+    
+    line-height: inherit;
+    text-decoration: underline;
+}
+
+
+
+
+/*Positioning*/
+.Center {
+    text-align: center;
+}
+
+
+
+.tab {
+    display: inline-block;
+    margin-left: 4rem;
+}
+
+.code {
+    display: flex;
+    padding: 1rem;
+}
+
+code {
+    background: gray;
+    padding: 2rem;
+    border: 2px solid white;
+    border-radius: 1rem;
+}
+
+
+
+
+img {
+    object-fit: scale-down;
+    background: black;
+    border-radius: inherit;
+}
+
+.Posters {
+    height: 100%;
+    background: black;
+}
+
+
+
+
+
+.code.floatLeft {
+    width: auto;
+}
+.code.floatRight {
+    width: auto;
+}
+
+.missing {
+    height: 100%;
+    width: inherit;
+    background: white;
+}
+
+.spacer {
+    height: max(calc(25vw - 15rem), 5rem);
+    margin-bottom: 1rem;
+}

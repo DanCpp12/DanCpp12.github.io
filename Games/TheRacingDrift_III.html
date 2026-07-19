@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <title>Daniel Estéen</title>
+
+    <link rel="stylesheet" href="../Styles/Permanent.css" />
+    <link rel="stylesheet" href="../Styles/Games.css" />
+    <link rel="stylesheet" href="../Styles/GamesChapters.css" />
+
+    <!--<link rel="stylesheet" href="Styles/debug.css"/>-->
+</head>
+
+<body class="WallPapper">
+    <header>
+        <div class="Banner">
+            <img src="../Images/HeadShoot.png" alt="selfie">
+            <div>
+                <h1><b>Daniel Estéen</b></h1>
+            </div>
+        </div>
+        <nav>
+            <button class="NavBtn" onclick="window.location.href='../index.html';">Home</button>
+            <button class="NavBtn" onclick="window.location.href='../Projects.html';">Projects</button>
+            <button class="NavBtn" disabled>TheRacingDrift III</button>
+        </nav>
+    </header>
+    <div class="Traversal">
+        <ul>
+            <li><a href="#Info">Info</a></li>
+            <hr>
+            <li><a href="#Chapter1">Engine</a></li>
+            <hr>
+            <li><a href="#Chapter2">Transmission</a></li>
+            <hr>
+            <li><a href="#Chapter3">Suspesion</a></li>
+            <hr>
+            <li><a href="#Chapter4">Wheels</a></li>
+        </ul>
+    </div>
+    <article>
+        <div class="Article">
+            <div id="Info" class="Target">
+                <div id="Details">
+                    <div class="Text">
+                        <div class="Tittle">
+                            <h1>Details</h1>
+                        </div>
+                        <ul>
+                            <li>Genre: Racing</li>
+                            <li>Platform: PC</li>
+                            <li>Engine: Unity</li>
+                            <li>Date: 2024</li>
+                            <li>Duration: 8 Weeks</li>
+                        </ul>
+                    </div>
+                    <div id="Trailer">
+                        <video class="Trailer" controls preload="auto">
+                            <source src="../Videos/TheRacingDrift_III/Trailer.mp4" type="video/mp4">
+                        </video>
+                        <br>
+                        <br>
+                        <br>
+                        <div class="Center">
+                            <p class="ItchBtn"><a href="../Reports/Grad Project Report.pdf" class="ubuntu-bold">-Report-</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div id="Description" class="Container">
+                    <div class="Text">
+                        <h1 class="Tittle">Description</h1>
+                        <p>
+                            TheRacingDrift III is my graduation project for FutureGames.
+                            It is a racing game with my own custom wheels, suspension and engine systems.
+                        </p>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div id="Chapter1" class="MidleChapter Target">
+                <div class="Container">
+                    <div class="Tittle W100">
+                        <h1>Engine</h1>
+                    </div>
+                    <div class="Text W40">
+                        <p>
+                            The engine is a simple power curve based on the Nissan GTR where the X-axis is the RPM and the Y-axis is the horsepower.<br>
+                            I got the idea to make a turbo but after making it and not noticing a difference in the car's acceleration thought of making the engine with cylinders and pistons.
+                            But after asking our mentor who said that engines are usually just a power curve and I also realised that it would take too much time. So not noticing a difference I scrapped the turbo entirely.
+                        </p>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div id="Chapter2" class="MidleChapter Target">
+                <div class="Container">
+                    <div class="Tittle W100">
+                        <h1>Transmission</h1>
+                    </div>
+                    <div class="Text W40">
+                        <p>
+                            The transmission takes the current gear's gear ratio from the Array then multiplies it with the final drive ratio to get the effective ratio.<br>
+                            The effective ratio is then used to calculate the output torque along the evaluated engine curve and throttle.
+                        </p>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div id="Chapter3" class="MidleChapter Target">
+                <div class="Container">
+                    <div class="Tittle W100">
+                        <h1>Suspension</h1>
+                    </div>
+                    <div class="Text W40">
+                        <p>
+                            the suspension coinsists of two parts the normal suspension wich is just a spring force and a dampening force but then there is the anti-sway bar witch in real life is a rorsion spring connecting left and right side suspension. but in the game it is a lerp conecting the two springs but because of a small error on my part when adding it it dose not get mentioned in the report as i solved it after the turnin of the report.
+                        </p>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div id="Chapter4" class="EndChapter Target">
+                <div class="Container">
+                    <div class="Tittle W100">
+                        <h1>Wheels</h1>
+                    </div>
+                    <div class="Text W100">
+                        <p>
+                            The wheels were the most dificult to get right mainly because i wanted them to roll corectly. as i wanted the wheels to roll with the speed of the car and the engine.
+                        </p>
+                    </div>
+                    <div class="Text W40">
+                        <p>
+                            Then there is the friction this can make or break the feel of the car.
+                            here i feel like i succeded because the wheels feels stable and controlable when you want them to be but when you want to drift they letgo and let you in to a controled drift.
+                        </p>
+                    </div>
+                    <div class="W10">
+                        <video class="contentImg" controls autoplay loop muted preload="auto">
+                            <source src="../Videos/TheRacingDrift_III/Wheels.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+    <footer>
+        <!-- contact -->
+        <h1>Contact Me</h1>
+        <div>
+            <p><img src="../Images/Icons/Mail_Icon_Dark.png"> <a href="mailto:daniel@esteen.st">daniel@esteen.st</a></p>
+        </div>
+        <div>
+            <p><img src="../Images/Icons/Phone_Icon2.png"> <a href="tel:+46706060701">+46 70 606 07 01</a></p>
+        </div>
+        <div>
+            <p><img src="../Images/Icons/Linkedin_icon1.png"> <a href="https://www.linkedin.com/in/danielesteen">linkedin</a></p>
+        </div>
+        <!-- site status -->
+        <div class="PageStatusBar">
+            <!--<p>Page Status: <span class="PageStatusGood">Good</span></p>-->
+            <p>Page Status: <span class="PageStatusDevelopment">In Development</span></p>
+            <!--<p>Page Status: <span class="PageStatusBad">Bad</span></p>-->
+        </div>
+    </footer>
+</body>
+
+</html>

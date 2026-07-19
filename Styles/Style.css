@@ -1,0 +1,258 @@
+html {
+    font-size: 10px;
+    color: white;
+}
+
+body {
+    overflow: hidden;
+    margin: 0
+}
+
+.WallPapper {
+    top: 0;
+    right: 0;
+    height: 98.3vh;
+
+    background: linear-gradient(#fbf9fc 1%, black 20%, black 75%, #2f0a52 99%);
+}
+
+header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 15rem;
+    width: 100vw;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.banner {
+    display: flex;
+    height: 80%;
+    width: inherit;
+
+    background: linear-gradient(to right, grey 80%, black 100%);
+}
+
+.banner div {
+    margin-top: 2rem;
+    margin-left: 1rem;
+    margin-right: calc(100% - 66rem);
+    width: auto;
+    font-size: 5rem;
+}
+
+.banner .Lang,
+.banner .Eng {
+    margin-top: 0.5rem;
+    height: 90%;
+    width: auto;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+
+@media (max-width: 60rem) {
+
+    .banner div {
+        margin-right: calc(100% - 44rem);
+    }
+
+    .banner .Lang,
+    .banner .Eng {
+        margin-top: 2.5rem;
+        height: 50%;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+}
+
+.Lang img,
+.Eng img {
+    height: 100%;
+    background: none;
+}
+
+
+nav {
+    height: 15%;
+
+    display: flex;
+    flex-direction: row;
+
+    padding-left: 7.35%;
+
+    background-color: #150028;
+}
+
+.navbtn {
+    border: 1px solid purple;
+    border-top: none;
+    border-bottom: none;
+
+    background: #420080;
+    color: white;
+    margin-right: 10px;
+}
+
+.navbtn:hover:enabled {
+    background: white;
+    color: black;
+}
+
+.navbtn:disabled {
+    background: purple;
+}
+
+main {
+    margin: auto;
+    margin-left: 7.35%;
+    margin-right: 7.35%;
+    margin-top: 5rem;
+
+    display: inline-grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: max(10%, 0.01rem);
+}
+
+article {
+    margin-left: 7.35%;
+    margin-right: 7.35%;
+    margin-top: 5rem;
+    /*border: 5px dotted red;*/
+}
+
+.Game {
+    position: relative;
+    height: 250px;
+    width: max(100%, 33rem);
+
+    font-size: 2rem;
+    color: white;
+    text-decoration: none;
+
+    display: flex;
+    flex-direction: row;
+
+    background: gray;
+    border-radius: 2rem;
+}
+
+.Poster {
+    width: 175px;
+    margin-right: 10px;
+}
+
+Description {
+    margin: 20px;
+}
+
+.information {
+    height: auto padding: 2rem;
+
+    font-size: 2rem;
+    color: white;
+}
+
+.Overflow {
+    height: calc(100% - 18rem);
+    margin-top: 14.4rem;
+
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.Overflow::-webkit-scrollbar {
+    display: none;
+}
+
+
+h1,
+p {
+    font-size: inherit;
+    color: inherit;
+    margin: inherit;
+    line-height: 2.5rem;
+    text-shadow: 2px 2px 2px black, 0 0 5px darkblue;
+}
+
+.tab {
+    display: inline-block;
+    margin-left: 4rem;
+}
+
+.code {
+    display: flex;
+    padding: 1rem;
+}
+
+code {
+    background: gray;
+    padding: 2rem;
+    border: 2px solid white;
+    border-radius: 1rem;
+}
+
+.information h1 {
+    text-decoration: underline;
+    margin-bottom: 1rem;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+img {
+    object-fit: scale-down;
+    background: black;
+}
+
+.Posters {
+    height: 100%;
+    background: black;
+}
+
+.contentImg {
+    width: 100%;
+    object-fit: scale-down;
+
+    border: 2px solid grey;
+    background: none;
+}
+
+.floatLeft {
+    float: left;
+
+    width: 50rem;
+    margin-right: 5rem;
+    margin-bottom: 2rem;
+}
+
+.floatRight {
+    float: right;
+
+    width: 50rem;
+    margin-left: 5rem;
+    margin-bottom: 2rem;
+}
+
+.code.floatLeft {
+    width: auto;
+}
+.code.floatRight {
+    width: auto;
+}
+
+.missing {
+    height: 100%;
+    width: inherit;
+    background: white;
+}
+
+.spacer {
+    height: max(calc(25vw - 15rem), 5rem);
+}

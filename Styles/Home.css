@@ -1,0 +1,60 @@
+.Divider{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    grid-gap: max(5%, 0.01rem);
+    
+    margin: auto;
+    margin-bottom: 10rem;
+    
+    height: auto;
+    width: 99.8%;
+}
+
+.School {
+    height: auto;
+    width: max(auto, 33rem);
+    padding: 1rem;
+    background: var(--Secondary-Light);
+    border: 0.2rem solid var(--edge);
+    border-radius: 1rem;
+    box-shadow: 0rem 0rem 2rem var(--Dark-Light);
+    color: var(--darker-text);
+}
+
+.School h1, .School p, .Shool ul, .Shool li{
+    font-size: 2rem
+}
+
+/*skills*/
+.GridBox {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 0.2fr));
+    border-bottom: 1px solid var(--BgColor);
+}
+.Skill{
+    background: var(--BgColor);
+    margin: 1rem;
+    
+    text-align: center;
+    padding: 1rem;
+    padding-bottom: 3rem;
+    
+    border: 0.2rem solid var(--edge);
+    border-radius: 1rem;
+    box-shadow: 0rem 0rem 2rem var(--Dark-Light);
+}
+.Skill img{
+    background: none;
+    margin-top: -1rem;
+    margin-bottom: -3rem;
+    height: 100%;
+    /*margin-bottom: -100%;*/
+    
+    width: 60%;
+    font-size: -5rem;
+}
+.Skill p{
+    line-height: 1rem;
+    margin-bottom: 2rem;
+}

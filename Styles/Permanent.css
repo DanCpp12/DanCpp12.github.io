@@ -1,0 +1,370 @@
+:root {
+    --BgColor: rgb(0, 0, 0);
+
+    --Main: rgb(0, 21, 0);
+    --Secondary: rgb(20, 20, 20);
+    --Secondary-Light: rgb(60, 60, 60);
+
+    --Detail: rgb(128, 0, 0);
+
+    --edge: rgb(0, 64, 0);
+    --edge-highlight: rgb(0, 128, 0);
+
+    --Dark-Light: rgb(0, 43, 0);
+    --Bright-Light: rgb(255, 255, 0);
+
+    --text: rgb(224, 224, 224);
+    --darker-text: rgb(192, 192, 192);
+    --disabled-text: rgb(128, 128, 128);
+    --error: rgb(255, 0, 0);
+    --edge-disabled: rgb(0, 0, 0);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+.ubuntu-regular {
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.ubuntu-bold {
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.ubuntu-light-italic {
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 300;
+    font-style: italic;
+}
+
+html {
+    font-size: 10px;
+    color: var(--text);
+    scrollbar-color: var(--edge-highlight) var(--Main);
+    scrollbar-width: thin;
+    scrollbar-gutter: stable;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+.missing {
+    height: 100%;
+    width: inherit;
+    object-fit: fill;
+}
+
+body {
+    margin: 0;
+}
+
+.WallPapper {
+    top: 0;
+    right: 0;
+    background: var(--BgColor)
+}
+
+img {
+    object-fit: scale-down;
+    background: var(--BgColor);
+    border-radius: inherit;
+}
+
+header {
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 15rem;
+    width: 100%;
+    box-shadow: 0rem 0rem 10rem 0.5rem var(--BgColor);
+}
+
+header h1 {
+    margin: inherit;
+}
+
+/*banner*/
+.Banner {
+    display: flex;
+    height: 80%;
+    width: inherit;
+
+    background: var(--Main);
+}
+
+.Banner img {
+    z-index: 0;
+    border-bottom-right-radius: 3rem;
+    border-right: 0.2rem solid var(--edge);
+    border-bottom: 0.2rem solid var(--edge);
+    object-fit: cover;
+}
+
+.Banner div {
+    margin-top: 2rem;
+    margin-left: 1rem;
+    margin-right: calc(100% - 66rem);
+    width: auto;
+    font-size: 5rem;
+}
+
+/*navigation*/
+nav {
+    z-index: 10;
+    height: 20%;
+
+    display: flex;
+    flex-direction: row;
+
+    padding-left: 14rem;
+    border-top: 0.1rem solid var(--BgColor);
+    background-color: var(--Main);
+}
+
+.NavBtn {
+    z-index: 10;
+    border: 0.1rem solid var(--edge);
+    border-bottom: none;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+
+    background: var(--BgColor);
+    color: var(--text);
+
+    font-size: 1.6rem;
+}
+
+.NavBtn:hover:enabled {
+    border: 1px solid var(--edge-highlight);
+    border-bottom: none;
+
+    background: var(--Secondary);
+    cursor: pointer;
+    box-shadow: 0rem -0.5rem 1rem var(--edge);
+}
+
+.NavBtn:disabled {
+    border: 1px solid var(--edge-highlight);
+    border-bottom: none;
+    background: var(--Secondary);
+    box-shadow: 0rem -0.5rem 1rem var(--edge);
+}
+
+.Traversal {
+    z-index: 0;
+    font-size: 2rem;
+    position: fixed;
+    top: 15rem;
+    left: 0rem;
+    width: 14rem;
+    background: rgb(0, 15, 0);
+    ;
+    border-top: 0.1rem solid var(--BgColor);
+    /*box-shadow: -1.1rem 0rem 1rem 0.5rem var(--edge-highlight);*/
+}
+
+.Traversal ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.Traversal hr {
+    margin-top: -0.2rem;
+    margin-bottom: -0.2rem;
+    margin-left: 0rem;
+    margin-right: 1rem;
+    height: 0.2rem;
+    border: 0;
+    border-radius: 1rem;
+    /*background: rgb(100,200,100);*/
+    background: yellow;
+    box-shadow: 0rem 0rem 1rem 0.5rem var(--edge-highlight);
+}
+
+.Traversal li a {
+    display: block;
+    color: var(--text);
+    font-size: inherit;
+    padding: 8px 16px;
+    text-decoration: none;
+    /*border-bottom: 0.2rem solid var(--edge-highlight);*/
+    /*border-right: 0.2rem solid var(--edge-highlight);*/
+    box-shadow: inset -0.5rem 0rem 0.5rem var(--edge-highlight);
+}
+
+.Traversal li a:hover {
+    background-color: var(--Secondary);
+    color: var(--edge-highlight);
+    border-right: none;
+    border-bottom: 0.2rem solid var(--edge-highlight);
+    border-top: 0.2rem solid var(--edge-highlight);
+    box-shadow: -1.1rem 0rem 1rem 0.5rem var(--edge);
+}
+
+.Target:before {
+    height: 15rem;
+    display: block;
+    content: '';
+}
+
+/*body*/
+article {
+    margin-left: 14rem;
+    margin-right: 14rem;
+    margin-bottom: -1rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    padding-bottom: 5rem;
+
+    min-height: calc(100vh - 5rem);
+    height: auto;
+    font-size: 3rem;
+
+    background: var(--Secondary);
+    box-shadow: 0rem 0rem 1rem 0.5rem var(--edge-highlight);
+}
+
+article hr {
+    height: 1rem;
+    background: var(--BgColor);
+    margin-top: 10rem;
+    border: 0;
+    border-radius: 1rem;
+    box-shadow: inset 0rem 0rem 0.3rem 0.02rem var(--edge-highlight);
+}
+
+.Courtesy {
+    position: relative;
+    bottom: 3.7rem;
+    /*display: inline-block;*/
+
+    height: auto;
+    background: var(--Secondary);
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+
+    text-align: left;
+    color: var(--Bright-Light);
+    font-size: 1.1rem;
+    line-height: 1.5rem;
+    padding-left: 1rem;
+    padding-top: 0.1rem;
+    padding-bottom: 0.3rem;
+}
+
+.Courtesy p {
+    height: inherit;
+    width: inherit;
+    line-height: inherit;
+    color: inherit;
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+}
+
+h1,
+p,
+li,
+ul,
+a {
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+    /*margin: inherit;*/
+
+    line-height: 3.5rem;
+    /*word-spacing: 0.5rem;*/
+    word-spacing: inherit;
+    text-shadow: 2px 2px 2px var(--BgColor), 0 0 5px var(--Main)
+}
+
+li {
+    line-height: 3rem;
+}
+
+a {
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 300;
+    font-style: italic;
+
+    line-height: inherit;
+    text-decoration: underline;
+}
+
+/*footer*/
+footer {
+    z-index: 10;
+    margin-top: 1rem;
+    height: 30rem;
+    padding-top: 5rem;
+    background: var(--Main);
+    box-shadow: 0rem 0rem 10rem 0.5rem var(--BgColor);
+
+    text-align: center;
+    font-size: 2rem;
+}
+
+footer a {
+    text-decoration: underline;
+    color: var(--Bright-Light);
+}
+
+footer p,
+footer p img,
+footer a {
+    background: none;
+    height: 4rem;
+    object-fit: scale-down;
+    align-content: center;
+}
+
+footer p img {
+    background: var(--edge);
+    border-radius: 1.2rem;
+    box-shadow: 0rem 0rem 3rem var(--edge-highlight);
+}
+
+.PageStatusBar {
+    position: relative;
+    bottom: -2.2rem;
+
+    text-align: left;
+    padding-left: 1rem;
+
+    background: var(--Secondary);
+    font-size: 1.3rem;
+    line-height: 1rem;
+    height: 3rem;
+    
+    border-top: 0.1rem solid var(--BgColor);
+}
+
+.PageStatusBar p {
+    height: inherit;
+    line-height: inherit;
+    margin-top: 0.0rem;
+}
+
+.PageStatusGood {
+    font-weight: bold;
+    color: rgb(0, 255, 0);
+}
+
+.PageStatusBad {
+    font-weight: bold;
+    color: var(--error);
+}
+
+.PageStatusDevelopment {
+    font-weight: bold;
+    color: yellow;
+}

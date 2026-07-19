@@ -1,0 +1,13 @@
+.FirstChapter::before {
+    height: 15rem;
+    display: block;
+    content: "";
+}
+.FirstChapter {
+    margin-bottom: -10rem;
+}
+.EndChapter::before {
+    height: 15rem;
+    display: block;
+    content: "";
+}
