@@ -1,0 +1,74 @@
+[
+    {
+        "company": "future_games",
+        "buttons": [
+            {
+                "try_this_one": true,
+                "active": true,
+                "page": "Games/TempleofRecal.html",
+                "poster": "Images/Posters/TempleofRecall.png",
+                "alt": "Temple of Recall Poster",
+                "title": "Temple of Recall",
+                "description": "Temple of Recall is a puzzle game where you rewind time of objects you have recorded.",
+                "madeAt": "Future Games",
+                "teamSize": "12",
+                "duration": "7 weeks",
+                "engine": "Unreal"
+            },
+            {
+                "active": true,
+                "page": "Games/MarkedForDeletion.html",
+                "poster": "Images/Posters/MarkedForDeletionPoster.png",
+                "alt": "Marked For Deletion Poster",
+                "title": "Marked For Deletion",
+                "description": "A meta stealth game where you delete the developers.",
+                "madeAt": "Future Games",
+                "teamSize": "10",
+                "duration": "4 weeks",
+                "engine": "Unreal"
+            },
+            {
+                "active": true,
+                "page": "Games/MadBoxRacing.html",
+                "poster": "Images/Posters/MadBoxRacing.png",
+                "alt": "MadBoxRacing Poster",
+                "title": "MadBoxRacing",
+                "description": "A gravity-driven cart race for mobile with hotswap.",
+                "madeAt": "Future Games",
+                "teamSize": "16",
+                "duration": "4 weeks",
+                "engine": "Unity"
+            },
+            {
+                "active": false,
+                "page": "Games/TheRacingDrift_III.html",
+                "poster": "Images/Posters/TheRacingDrift_III(3).png",
+                "alt": "",
+                "title": "TheRacingDrift III",
+                "description": "TheRacingDrift III is my graduation project for Future Games. It is a racing game with my own wheels, springs and engine. ",
+                "madeAt": "Future Games",
+                "teamSize": "1",
+                "duration": "10 weeks",
+                "engine": "Unity"
+            }
+        ]
+    },
+    {
+        "company": "edutechsmart",
+        "buttons": [
+            {
+                "active": true,
+                "page": "Games/EduTechSmartAPL.html",
+                "poster": "Images/Posters/EduTechSmart.png",
+                "courtesy": "EduTechSmart Global AB",
+                "alt": "EduTechSmart Global AB logo",
+                "title": "EduTechSmart (Internship)",
+                "description": "EduTechSmart creates helthcare education based on advansed game thechnology and AI.",
+                "madeAt": "",
+                "teamSize": "8",
+                "duration": "6 months",
+                "engine": "_"
+            }
+        ]
+    }
+]
