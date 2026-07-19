@@ -1,0 +1,417 @@
+// based on fire-safety:
+// lesson
+manus.json
+ intro                            // Will be in nomater what
+  "linked_question": "intro_1"    // Add to the first index or indexes
+  "linked_question": "intro_2"    // Add to the last index will add the previus index too and change the text to be a tailored special text
+ tailored part
+  "linked_question": [...]        // input the number of the question or questions
+ outro                            // Will be in nomater what
+  "linked_question": "outro"      // Add to the first to last indexes of the outro
+ // change the manus from an array to a dictionary
+ // manus[0] = "lesson": [
+ // manus[1] = "chapters": [
+
+CoreManager.gd
+ .	...
+ 24	var is_tailored = false
+ .	...
+
+ 41	func _ready():
+  .		...
+  95			is_tailored = wp_config.tailored
+  .		...
+  98		if is_tailored: # To test in editor enter this if and make is_tailored = true
+  99			DatabaseManager._build_data({"action" : Actions.TAILORED})
+  .		...
+  114		courseData = loadResult.lesson
+  115		var chapters = loadResult.chapters
+  .		...
+
+dbManager.gd
+ .		...
+ 3		enum Actions {... , TAILORED}
+ .		...
+ 239	func _build_data(args):
+  .		...
+  366			Actions.TAILORED:
+  367				endpoint = "/get/results"
+  368				current_data = _build_query_string({
+  369					"course_id": 4178
+  370				})
+  371				method = HTTPClient.METHOD_POST
+  .		...
+
+ 420	func _handle_response():
+  .		...
+  482			Actions.TAILORED:
+  483				_on_tailoring_fetched(response)
+  .		...
+
+ 578	func _on_tailoring_fetched(response):
+  579		tailoring_manus = response
+
+ 586	var tailoring_manus = null
+ 587	var tailored_steps = []
+ 588	var exclusive_tailored_steps = []
+ 589	func finalize_manuscript():
+  .		...
+  608		if tailoring_manus != null:
+	609			var main_index
+	610			var linked_inedexes = {"tailored": []}
+	611			for main_chapter in manus.lesson:
+	612				main_index = manus.lesson.find(main_chapter)
+	613				if main_chapter == manus.lesson.front():
+	614					for sub_chapter in main_chapter:
+	615						if sub_chapter.has("linked_question"):
+	616							if sub_chapter.linked_question == "intro_1" or sub_chapter.linked_question == "intro_2":
+	617								var sub_index = main_chapter.find(sub_chapter)
+	618								if sub_chapter.linked_question == "intro_2":
+	619									linked_inedexes.tailored.append([main_index, sub_index - 1])
+	620									main_chapter[sub_index - 1].text = "custom_lesson_01"
+	621								linked_inedexes.tailored.append([main_index, sub_index])
+	622				else:
+	623					for sub_chapter in main_chapter:
+	624						var sub_index = main_chapter.find(sub_chapter)
+	625						if sub_chapter.has("linked_question") and sub_chapter.linked_question is Array:
+	626							for id in sub_chapter.linked_question:	// This for loop is not needed if "id == int(dict.title)" at 628 is replaced with "sub_chapter.linked_question.has(int(dict.title))" but then the linked_questions has to be exact string instead of matching just the numbers
+	627								for dict in tailoring_manus.incorrect:
+	628									if id == int(dict.title) and !linked_inedexes.tailored.has([main_index, sub_index]):
+	629										linked_inedexes.tailored.append([main_index, sub_index])
+	630										break
+	631						elif sub_chapter.has("linked_question"):
+  632							if sub_chapter.linked_question == "outro":
+  633								linked_inedexes.tailored.append([main_index, sub_index])
+  634						elif main_chapter == manus.lesson.back() and sub_chapter == main_chapter.back():
+  635							linked_inedexes.tailored.append([main_index, sub_index])
+  636			manus.merge(linked_inedexes)
+  637		
+  638			var previus_main
+  639			main_index = -1
+  640			for i in manus.tailored.size():
+  641				var tailored_index = manus.tailored[i]
+  642				if previus_main == null or tailored_index[0] != previus_main:
+  643					main_index += 1
+  644					tailored_steps.append(0)
+  645					exclusive_tailored_steps.append(0)
+  646					previus_main = tailored_index[0]
+  647					if main_index != tailored_index[0]:
+  648						for j in tailored_index[0] - main_index:
+  649							tailored_steps.append(0)
+  650							main_index += 1
+  651				tailored_steps[tailored_steps.size() - 1] += 1
+  652				exclusive_tailored_steps[exclusive_tailored_steps.size() - 1] += 1
+
+EventManager.gd
+ 136	signal force_timeline_skip
+ 137	func OnForcedTimelineSkip(slider_value):
+  138		emit_signal("force_timeline_skip", slider_value)
+
+ 140	var selected_slider_value = 0
+ 141	func find_next_slider_value(mainIndex):
+  142		var tailored_steps = []                                             // Not needed from 142 to 160 and replace "tailored_steps" with "DatabaseManager.tailored_steps"
+  143		var tailored = DatabaseManager.manus.tailored
+  144
+  145		var previus_main
+  146		var main_index = -1
+  147		for i in DatabaseManager.manus.tailored.size():
+  148			var tailored_index = DatabaseManager.manus.tailored[i]
+  149			if previus_main == null or tailored_index[0] != previus_main:
+  150				main_index += 1
+  151				tailored_steps.append(0)
+  152				previus_main = tailored_index[0]
+  153				if main_index != tailored_index[0]:
+  154					for j in tailored_index[0] - main_index:
+  155						tailored_steps.append(0)
+  156						main_index += 1
+  157			tailored_steps[tailored_steps.size() - 1] += 1
+  158		
+  159		var manus = DatabaseManager.manus.lesson
+  160		var linked_indexes = DatabaseManager.manus.tailored
+  161		var current_value = 0
+  162		
+  163		for chapter in tailored_steps.size():
+  164			if chapter <= mainIndex:
+  165				current_value += tailored_steps[chapter]
+  166				continue
+  167			elif chapter > mainIndex:
+  168				selected_slider_value = current_value
+  169				return 
+  170			
+  171		printerr("Error: Couldn't find next jump from: %s in manuscript" %mainIndex)
+ .
+ .	...
+ 177	var jumpIndex = null
+ .	...
+
+ 179	func OnProgressAudioSubStep(mainIndex, subIndex):
+  180		if DatabaseManager.manus.has("tailored"):
+  181			#var chapter = DatabaseManager.manus.lesson[mainIndex]
+  182			var link = null
+  183			var links = DatabaseManager.manus.tailored
+  184			var inv_links = links.duplicate()
+  185			inv_links.invert()
+  186			for arr in inv_links:
+  187				if arr[0] == mainIndex:
+  188					link = arr
+  189					break
+  190	
+  191			if (subIndex >= DatabaseManager.manus.lesson[mainIndex].size() - 1 or subIndex > link[1]) \
+  192			and mainIndex != DatabaseManager.manus.lesson.size() - 1:
+  193				find_next_slider_value(mainIndex)
+  194				OnForcedTimelineSkip(selected_slider_value)
+  195				jumpIndex = links.find([mainIndex, subIndex])
+  196			elif links.find([mainIndex, subIndex]) != jumpIndex and links.find([mainIndex, subIndex]) != -1:
+  197				emit_signal("progressAudioSubStep", mainIndex, subIndex)
+  198				jumpIndex = links.find([mainIndex, subIndex])
+  199			elif links.find([mainIndex, subIndex]) == -1:
+  200				OnForcedTimelineSkip(jumpIndex + 1)
+  201		else:
+  202			emit_signal("progressAudioSubStep", mainIndex, subIndex)
+
+ 327	func OnLessonsFetched():
+  .		...
+  332			elif DatabaseManager.manus.has("tailored"):
+  333				emit_signal("lesson_already_completed")
+  334				return
+  .		...
+
+progress_buttons.gd
+ 100	func _on_Undo_pressed():
+  .		...
+  118		if timeline.will_show_chapter_screen([DatabaseManager.mainIndex, DatabaseManager.subIndex - 1]):
+  .		...
+
+ 127	func _on_Forward_pressed():
+  .		...
+  150		if timeline.will_show_chapter_screen([DatabaseManager.mainIndex, DatabaseManager.subIndex + 1]):
+  .		...
+
+timeline.gd
+ 57		func _ready():
+  .		...
+  79	  EventManager.connect("force_timeline_skip", self, "_on_forced_timeline_skip")
+  .		...
+
+ 92		func on_start(waste_value):
+  .			...
+  107		if DatabaseManager.manus.has("tailored"):
+  108			tmp_steps = 0
+  109			chapter_endings.clear()
+  110			for steps in tailored_panel_steps:
+  111				tmp_steps += steps
+  112				chapter_endings.append(tmp_steps - 1)
+  .			...
+  117		if not DatabaseManager.manus.has("tailored"):
+  118			for stepLength in DatabaseManager.step_lengths:
+  119				tmp_steps += stepLength
+  120				var timeline_panel = TimelinePanel.new()
+  121				timeline_panel.panel_type = get_panel_type(main_index)
+  122				timeline_panel.root = panel_template.duplicate()
+  123				timeline_panel.red_filling = timeline_panel.root.get_node("RedFilling")
+  124				timeline_panel.chapter_style = normal_chapter_style if timeline_panel.panel_type == PanelType.NORMAL else exercise_chapter_style
+  125				timeline_panel.value_end = tmp_steps
+  126				timeline_panel.value_start = tmp_steps - stepLength
+  127				timeline_panel.red_filling.min_value = timeline_panel.value_start
+  128				timeline_panel.red_filling.max_value = timeline_panel.value_end - 1
+  129				timeline_panel.red_filling.value = timeline_panel.red_filling.max_value
+  130				Hbox.add_child(timeline_panel.root)
+  131				timeline_panel.root.size_flags_stretch_ratio = stepLength
+  132				timeline_panel.root.set("custom_styles/panel", get_panel_style(timeline_panel.panel_type))
+  133			
+  134				if timeline_panel.panel_type == PanelType.EXERCISE:
+  135					timeline_panel.red_filling.tint_progress.a = 0.5
+  136			
+  137				timeline_panels.append(timeline_panel)
+  138				main_index += 1
+  139		else:
+  140			for stepLength in tailored_steps:
+  141				if stepLength > 0:
+  142					tmp_steps += stepLength
+  143					var timeline_panel = TimelinePanel.new()
+  144					timeline_panel.panel_type = get_panel_type(main_index)
+  145					timeline_panel.root = panel_template.duplicate()
+  146					timeline_panel.red_filling = timeline_panel.root.get_node("RedFilling")
+  147					timeline_panel.chapter_style = normal_chapter_style if timeline_panel.panel_type == PanelType.NORMAL else exercise_chapter_style
+  148					timeline_panel.value_end = tmp_steps
+  149					timeline_panel.value_start = tmp_steps - stepLength
+  150					timeline_panel.red_filling.min_value = timeline_panel.value_start
+  151					timeline_panel.red_filling.max_value = timeline_panel.value_end - 1
+  152					timeline_panel.red_filling.value = timeline_panel.red_filling.max_value
+  153					Hbox.add_child(timeline_panel.root)
+  154					timeline_panel.root.size_flags_stretch_ratio = stepLength
+  155					timeline_panel.root.set("custom_styles/panel", get_panel_style(timeline_panel.panel_type))
+  156			
+  157					if timeline_panel.panel_type == PanelType.EXERCISE:
+  158						timeline_panel.red_filling.tint_progress.a = 0.5
+  159			
+  160					timeline_panels.append(timeline_panel)
+  161				main_index += 1
+  .			...
+ 
+ 194  func Initialize(courseData, _unused):
+  .			...
+  198		if not DatabaseManager.manus.has("tailored"):   // Put old code in here for normal timeline
+  .			...
+  210		else:
+  211			var t_index = -1
+  212			var tailored = DatabaseManager.manus.tailored
+  213			for i in range(0, len(DatabaseManager.exclusive_tailored_steps)):
+  214				temp_index_data.append([])
+  215				for j in DatabaseManager.exclusive_tailored_steps[i]:
+  216					t_index += 1
+  217					var is_linked = courseData[tailored[t_index][0]][tailored[t_index][1]].get("link_timeline_index", false)
+  218					temp_index_data[i].append(is_linked)
+  219					if is_linked:
+  220						if j > 0 and temp_index_data[i][j-1] == true and not courseData[tailored[t_index][0]][tailored[t_index][1]-1].get("final_link_index", false):
+  221							value_ranges.back().append(current_timeline_value + j)
+  222						else:
+  223							value_ranges.append([ current_timeline_value + j ])
+  224				current_timeline_value += DatabaseManager.exclusive_tailored_steps[i]
+
+ 232	func on_value_changed(new_value, force_next = false, force_previous = false):
+  .		...
+  257		if final_value in chapter_endings and not DatabaseManager.manus.has("tailored"):
+  258			if initial_diff < 0: # Skip backward past chapter end
+  259				final_value -= 1
+  260			else: # Forward
+  261				final_value += 1 
+  .		...
+
+ 293	func _on_forced_timeline_skip(new_value):
+  294		ignore_value_change = true
+  295		self.value = new_value
+  296		ignore_value_change = false
+  297		drag_ended(true)
+
+ 300	func drag_ended(did_slide, transition_type = Transition.FADE_IN_OUT):
+  .		...
+  318 			if DatabaseManager.manus.has("tailored"):
+  319 				new_main_i = DatabaseManager.manus.tailored[self.value][0]
+  320 				new_sub_i = DatabaseManager.manus.tailored[self.value][1]
+  .		...
+  341				show_new_chapter = will_show_chapter_screen([new_main_i,new_sub_i])
+  .		...
+ 
+ 475	func update_slider(mainIndex, subIndex):
+  .			...
+  478		if not DatabaseManager.manus.has("tailored"):   // Put old code in here for normal timeline
+  .			...
+  482		else:
+  483			tmp_value += core_manager.subIndex - DatabaseManager.manus.tailored[tmp_value][1]
+  484
+  485		on_value_changed(tmp_value, false, true)
+
+ 612	func get_current_indexes() -> Array:
+  .		...
+  616		if DatabaseManager.manus.has("tailored"):
+  617			for i in range(0, DatabaseManager.exclusive_tailored_steps.size()):
+  618				slider_value -= DatabaseManager.exclusive_tailored_steps[i]
+  619				if slider_value < 0:
+  620					slider_value += DatabaseManager.exclusive_tailored_steps[i]
+  621					var new_main_i = i
+  622					var new_sub_i = slider_value
+  623					return [new_main_i, new_sub_i]
+  .		...
+
+ 755	func update_chapter_panel():
+  .		...
+  759		var smallest_panel_index = -1
+  .		...
+  768			if smallest_distance == null or distance < smallest_distance:
+  769				smallest_distance = distance
+  770				smallest_part_index = i
+  771				if DatabaseManager.manus.has("tailored"):
+  772					smallest_panel_index = 0
+  773					for j in tailored_panel_steps.size():
+  774						if j < i:
+  775							smallest_panel_index += tailored_panel_steps[j]
+  776					smallest_panel_index = DatabaseManager.manus.tailored[smallest_panel_index][0]
+  .		...
+  781			current_chapter_name = EventManager.chapters[smallest_part_index if not DatabaseManager.manus.has("tailored") else smallest_panel_index]
+  .		...
+	
+ 802	func get_mouse_hover_slider_value():
+  .			...
+  817		if DatabaseManager.manus.has("tailored"):
+  818			var indexes = DatabaseManager.manus.tailored[hover_slider_value]
+  819			hover_slider_value = 0
+  820			for i in indexes[0]:
+  821				hover_slider_value += DatabaseManager.step_lengths[i]
+  822			hover_slider_value += indexes[1]
+  823			
+  824			hover_slider_value -= indexes[0]
+  825			return hover_slider_value
+  .			...
+ 
+ 894	func will_show_chapter_screen(var indexes) -> bool:
+  895		#if DatabaseManager.paused:
+  896		#	return false
+  .			...
+  898		var new_main_i = indexes[0]
+  899		var new_sub_i = indexes[1]
+  .			...
+  908		var show_new_chapter = new_main_i != main_i if did_change_mode else new_main_i > main_i# and new_sub_i == 0
+ 
+ // Interactive overlay
+ 961	func create_interactive_overlay_panels():
+  .			...
+  964		var course_data = DatabaseManager.manus.lesson
+  .			...
+  968		var panel_index = -1
+  969	
+  970		for main_index in course_data.size() if not DatabaseManager.manus.has("tailored") else DatabaseManager.tailored_steps.size():
+  971			if DatabaseManager.manus.has("tailored") and DatabaseManager.tailored_steps[main_index] == 0:
+  972				continue
+  973			else:
+  974				panel_index += 1
+  975			if timeline_panels[panel_index].panel_type == PanelType.EXERCISE: # Already covered by interactive chapter // old code
+  .			...
+  983			var inv_procentage = -(DatabaseManager.tailored_steps[main_index]/DatabaseManager.step_lengths[main_index]) + 1 if DatabaseManager.manus.has("tailored") else 0
+  .			...
+  985				if DatabaseManager.manus.has("tailored") and DatabaseManager.manus.tailored.find([main_index,sub_index]) == -1:
+  986					current_panel_overlay.size_flags_stretch_ratio += inv_procentage/(DatabaseManager.step_lengths[main_index]-DatabaseManager.tailored_steps[main_index])
+  987					continue
+  .			...
+  993						if inv_procentage != 0:
+  994							current_panel_overlay.size_flags_stretch_ratio += inv_procentage - 0.4 # Magic number? Yeees
+  .			...
+  1000					if inv_procentage != 0:
+  1001						current_panel_overlay.size_flags_stretch_ratio += inv_procentage - 0.5 # Magic number? Yeees
+  .			...
+  
+ 1034	func is_subchapter_interactive(main_index, sub_index) -> bool:
+  .			...
+  1036	var sub_chapter = DatabaseManager.manus.lesson[main_index][sub_index]
+  .			...
+
+UI_Manager.gd
+ 247	func SetEndScreen():
+  248		if DatabaseManager.manus.has("tailored"):
+  249			var lable = endScreen.get_node("MarginContainer/VBoxContainer/HBoxContainer2/Label")
+  250			if lable.text == "endscreen":
+  251				lable.text = "endscreen_2"
+  .		...
+
+
++change manus[?] with manus.dict
++change manus.size() > ? with manus.has("dict")
+
+// examination
+UI_Manager.gd
+ 15	export(NodePath) onready var endScreenTailoredText = get_node(endScreenTailoredText) as Node
+ 16	export(NodePath) onready var endScreenTailoredLesson = get_node(endScreenTailoredLesson) as Node
+ 
+ 371	func SetEndScreenVisibility(isVisible):
+	371		endScreen.visible = isVisible
+	371		background_blur.visible = isVisible
+	371		if DatabaseManager.get_correct_answers() < DatabaseManager.get_correct_answers_needed() and DatabaseManager.get_correct_answers() >= 3:
+	371			endScreenTailoredText.visible = isVisible
+	371			endScreenTailoredLesson.visible = isVisible
+
+ 635	func _on_tailored_pressed():
+  636		endScreen.visible = false
+	636		var language_variable = (DatabaseManager.text_language if DatabaseManager.text_language else "en").to_lower()
+	636		var course_name = ProjectSettings.get_setting("application/config/name")
+	636		course_name = course_name.replace("-examination", "-lesson")
+	636		JavaScript.eval("parent.window.location.href = '" + "https://" + DatabaseManager.host_name + "/" + course_name + "/?lang=" + language_variable + "&tailored=" + str(true) + "';");
